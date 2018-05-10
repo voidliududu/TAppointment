@@ -8,6 +8,7 @@ use app\common\exception\InsufficientPrivilegesException;
 use app\common\exception\TooMuchAppointmentsException;
 use app\index\model\Appointments;
 use app\index\model\Playgrounds;
+use think\Controller;
 use think\Request;
 use app\common\Auth;
 
@@ -15,12 +16,13 @@ use app\index\model\Users;
 use think\Response;
 use think\Session;
 
-class Index
+class Index extends Controller
 {
     private $user;
 
     public function __construct()
     {
+        parent::__construct();
         //1.检查session
         //2.获取验证
         if (!$this->checkAuthPhase()) {
@@ -38,7 +40,7 @@ class Index
                     if ($userinfo['visit_oauth'] == false) {
                         //引导授权
                         $url = config('api_authorize') . '?client_id=' . config('appid') . '&redirect_uri=' . config('entry_url');
-                        redirect($url);
+                        $this->redirect($url);
                     }
                     //获取用户详细信息
                     $moreUserInfo = $this->getUserInfo($userinfo['visit_oauth']['access_token']);
@@ -53,8 +55,8 @@ class Index
                     try {
                         $user = new Users();
                         $user->uid = $userid;
-                        $user->yb_name = $moreUserInfo['yb_name'];
-                        $user->yb_nickname = $moreUserInfo['yb_nickname'];
+                        $user->yb_name = $moreUserInfo['yb_username'];
+                        $user->yb_nickname = $moreUserInfo['yb_usernick'];
                         $user->yb_userhead = $moreUserInfo['yb_userhead'];
                         $user->yb_schoolid = $moreUserInfo['yb_schoolid'];
                         $user->yb_schoolname = $moreUserInfo['yb_schoolname'];
@@ -284,14 +286,14 @@ class Index
     private function getUserInfo($accessToken)
     {
         $ch = curl_init();
-        $url = config('api_userinfo' . '?access_token=' . $accessToken);
+        $url = config('api_userinfo') . '?access_token=' . $accessToken;
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $result = curl_exec($ch);
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($statusCode == 200) {
-            $res = json_decode($result);
+            $res = json_decode($result,true);
             if ($res['status'] == 'success') {
                 return $res['info'];
             } else {

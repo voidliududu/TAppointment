@@ -33,13 +33,14 @@ class Auth
 
     //获取用户验证信息
     private function getVerifiyRequest(Request $request) {
-        if ($verify_request = $request->has('verify_request','get')){
+        if ($request->has('verify_request','get')){
+            $verify_request = $request->get('verify_request');
             $verify_request = addslashes($verify_request);
             $postStr = pack("H*", $verify_request);
-            //$postInfo = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, config("appSecret"), $postStr, MCRYPT_MODE_CBC, config("appID"));
-            $postInfo = openssl_decrypt($postStr,'aes-128-cbc',config('appSecret'),OPENSSL_RAW_DATA,config("appID"));
+            $postInfo = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, config("appSecret"), $postStr, MCRYPT_MODE_CBC, config("appID"));
+            //$postInfo = openssl_decrypt($postStr,'aes-128-cbc',config('appSecret'),OPENSSL_RAW_DATA,config("appID"));
             $postInfo = rtrim($postInfo);
-            $this->authinfo = json_decode($postInfo);
+            $this->authinfo = json_decode($postInfo,true);
             return self::$VERIFY_REQUEST_SUCCESS;
         } else {
             //错误处理
