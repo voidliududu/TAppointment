@@ -28,7 +28,7 @@ class Index
             $userAuth = new Auth();
             if ($userAuth->getAuthState() == Auth::$VERIFY_REQUEST_ERR) {
                 //易班与服务器通信错误
-                return abort(404, "你好，你的队友易班服务器已经打出了gg，我们不能为你提供服务啦 :(");
+                die( "你好，你的队友易班服务器已经打出了gg，我们不能为你提供服务啦 :(");
             } else {
                 $userinfo = $userAuth->getAuthInfo();
                 //检查用户是否已注册
@@ -43,11 +43,11 @@ class Index
                     //获取用户详细信息
                     $moreUserInfo = $this->getUserInfo($userinfo['visit_oauth']['access_token']);
                     if ($moreUserInfo == NULL) {
-                        abort(404, '获取用户信息失败');
+                        die( '获取用户信息失败');
                     }
                     //判断是否是中南大学学生
                     if ($moreUserInfo['yb_schoolname'] != config('school_name')) {
-                        abort(404, '本系统只向中南大学学生开放');
+                        die('本系统只向中南大学学生开放');
                     }
                     //注册
                     try {
@@ -61,7 +61,7 @@ class Index
                         Users::signUp($user);
                         $user = Users::checkSignUp($userid);
                     } catch (DBException $e) {
-                        abort(300, '注册失败');
+                        die('注册失败');
                     }
                 }
                 //set authphase等操作
