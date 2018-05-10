@@ -82,7 +82,7 @@ class Index
      * */
     public function index(Request $request)
     {
-
+        echo "goodbye world";
     }
 
     /**
