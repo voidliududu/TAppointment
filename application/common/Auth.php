@@ -37,7 +37,7 @@ class Auth
             $verify_request = addslashes($verify_request);
             $postStr = pack("H*", $verify_request);
             //$postInfo = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, config("appSecret"), $postStr, MCRYPT_MODE_CBC, config("appID"));
-            $postInfo = openssl_decrypt($postStr,'ase-128-cbc',config('appSecret'),OPENSSL_RAW_DATA,config("appID"));
+            $postInfo = openssl_decrypt($postStr,'aes-128-cbc',config('appSecret'),OPENSSL_RAW_DATA,config("appID"));
             $postInfo = rtrim($postInfo);
             $this->authinfo = json_decode($postInfo);
             return self::$VERIFY_REQUEST_SUCCESS;
