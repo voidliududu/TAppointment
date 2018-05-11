@@ -278,7 +278,7 @@ class Index extends Controller
      * */
     private function checkAuthPhase()
     {
-        return Session::has('uid') && Sesssion::has('access_token') && Session::has('token_expires');
+        return Session::has('uid') && Session::has('access_token') && Session::has('token_expires');
     }
 
     /**
