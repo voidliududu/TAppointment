@@ -21,5 +21,10 @@ return [
     'mock' => 'test/ModelTest/createMockData',
     'clear' => 'test/ModelTest/dropdata',
     'test' => 'test/ModelTest/test',
+    'indextest' => 'test/ModelTest/index',
+
+
+
+
     'index' => 'index/Index/index'
 ];

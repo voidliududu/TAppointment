@@ -46,6 +46,9 @@ class ModelTest extends Controller
         }
         echo "操作完成";
     }
+    public function index() {
+        return $this->fetch('index@Index/index');
+    }
 
     public function dropdata()
     {
@@ -96,15 +99,6 @@ class ModelTest extends Controller
         return $token;
     }
 
-    /**
-     * 显示资源列表
-     *
-     * @return \think\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * 显示创建资源表单页.

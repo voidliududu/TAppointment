@@ -85,6 +85,7 @@ class Index extends Controller
     public function index(Request $request)
     {
         echo "goodbye world";
+        dump($this->user);
     }
 
     /**
