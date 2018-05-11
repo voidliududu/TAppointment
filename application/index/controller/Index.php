@@ -84,8 +84,11 @@ class Index extends Controller
      * */
     public function index(Request $request)
     {
-        echo "goodbye world";
-        dump($this->user);
+        if (! $this->user->checkImproveInfo()) {
+            $this->fetch('Index/index');
+        } else{
+            dump($this->user);
+        }
     }
 
     /**

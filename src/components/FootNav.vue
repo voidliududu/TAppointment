@@ -1,10 +1,10 @@
 <template>
   <mu-paper>
     <mu-bottom-nav :value="bottomNav" @change="handleChange">
-    <mu-bottom-nav-item value="recents" title="Recents" icon="restore"/>
-    <mu-bottom-nav-item value="favorites" title="Favorites" icon="favorite"/>
-    <mu-bottom-nav-item value="nearby" title="Nearby" icon="location_on"/>
-  </mu-bottom-nav>
+      <mu-bottom-nav-item value="me" title="我" to="me" icon="perm_identity"/>
+      <mu-bottom-nav-item value="appointment" title="预约" icon="calendar_today"/>
+      <mu-bottom-nav-item value="about" title="关于" icon="info"/>
+    </mu-bottom-nav>
 </mu-paper>
 </template>
 
@@ -14,7 +14,7 @@
 
     data () {
     return {
-      bottomNav: 'recents'
+      bottomNav: 'me'
     }
   },
   methods: {
