@@ -22,9 +22,15 @@ return [
     'clear' => 'test/ModelTest/dropdata',
     'test' => 'test/ModelTest/test',
     'indextest' => 'test/ModelTest/index',
+    'testimproveinfo' => ['test/ModelTest/improveInfo',['method' => 'post']],
+    'testsignapp' => 'test/ModelTest/makeAppointment',
 
 
 
 
-    'index' => 'index/Index/index'
+    'index' => 'index/Index/index',
+    'improveinfo' => ['index/Index/improveInfo',['method' => 'post']],
+    'getuserinfo' => ['index/Index/fetchUserInfo',['method' => 'get']],
+    'getAppointmentInfo' => ['index/Index/getAppointmentList',['method' => 'get']],
+    'getHistoryAppointmentInfo' => ['index/Index/getHistoryAppointmentList',['method' => 'get']]
 ];

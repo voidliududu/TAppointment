@@ -2,6 +2,7 @@
 
 namespace app\test\controller;
 
+use think\App;
 use think\Controller;
 use think\Request;
 use think\Db;
@@ -57,6 +58,17 @@ class ModelTest extends Controller
         echo '操作完成';
     }
 
+    public function improveInfo(Request $request) {
+        if (!$request->post('schoolnumber') || !$request->post('name')) {
+            return $this->jsonError(1, "shool number or name required");
+        } else {
+            //$this->user->improveInfo($request->post('schoolnumber'), $request->post('name'));
+            return $this->jsonSuccess([
+                'schoolname' => $request->post('schoolnumber'),
+                'name' => $request->post('name')
+            ]);
+        }
+    }
     public function generate_password($length = 8)
     {
 // 密码字符集，可任意添加你需要的字符
@@ -68,6 +80,19 @@ class ModelTest extends Controller
         return $password;
     }
 
+    public function makeAppointment() {
+        $user = Users::get(16516545);
+        $appointment = new Appointments();
+        $appointment->uid = $user->uid;
+        $playground = Playgrounds::get(15);
+        $appointment->pgid = $playground->pgid;
+        $appointment->timeslice = $playground->timeslice;
+        $appointment->adate = date('Y-m-d');
+
+        $aid = Appointments::signAppointment($user,$appointment);
+        return json(Appointments::get($aid));
+
+    }
     public function test()
     {
 //       $result = Playgrounds::getAvailablePgid();
@@ -99,7 +124,25 @@ class ModelTest extends Controller
         return $token;
     }
 
+    private function jsonSuccess($result)
+    {
+        return json([
+            'status' => 0,
+            'data' => $result
+        ]);
+    }
 
+    /**
+     * json错误响应的封装
+     *
+     * */
+    private function jsonError($error_code, $error_msg)
+    {
+        return json([
+            'status' => $error_code,
+            'msg' => $error_msg
+        ]);
+    }
     /**
      * 显示创建资源表单页.
      *

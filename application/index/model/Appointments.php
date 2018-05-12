@@ -13,6 +13,8 @@ class Appointments extends Model
     //
     protected $pk = 'aid';
     protected $table = 'appointments';
+
+    public static $AVAILABLE = 0;
     /**
      * 生成随机口令
      *
@@ -63,8 +65,9 @@ class Appointments extends Model
      * @author voidliududu
      * */
     public static function signAppointment($user,$appointment) {
+        //todo 检查用户是否认证
         //检查用户的预约数
-        if ($user->countAppointments >= config('max_appointments_count')){
+        if ($user->countAppointments() >= config('max_appointments_count')){
             throw new TooMuchAppointmentsException();
         }
         //检查是否有冲突的预约
@@ -72,7 +75,7 @@ class Appointments extends Model
 //        $pgids = Playgrounds::getSameTimeSlicePgid($appointment->pgid);
 //        $conflictAppointments = $user->appointments()->where('adate',$appointment->adate)->where('pgid','in',$pgids)->select();
         $conflictAppointments = $user->appointments()
-            ->where('adate','$appointment->adate')
+            ->where('adate',$appointment->adate)
             ->where('timeslice',$appointment->timeslice)->select();
         //todo check empty
         if (!empty($conflictAppointments)){
@@ -80,6 +83,10 @@ class Appointments extends Model
         }
         $token = self::generateToken();
         $appointment->token = $token;
+        $appointment->state = self::$AVAILABLE;
+        $time = date('Y-m-d h:i:s');
+        $appointment->create_at = $time;
+        $appointment->update_at = $time;
         $appointment->save();
         //fixme get insert id
         return $appointment->getLastInsID();

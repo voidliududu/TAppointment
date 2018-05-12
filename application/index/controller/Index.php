@@ -85,7 +85,7 @@ class Index extends Controller
     public function index(Request $request)
     {
         if (! $this->user->checkImproveInfo()) {
-            $this->fetch('Index/index');
+            return $this->fetch('Index/index');
         } else{
             dump($this->user);
         }
