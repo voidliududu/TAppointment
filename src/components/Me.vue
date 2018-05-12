@@ -80,11 +80,11 @@
                         let result = res.body
                         if (result.status === 0) {
                             //成功
-                            this.userdata.uhead = result.data.userhead
+                            this.userdata.uhead = result.data.yb_userhead
                             this.userdata.apcount = result.data.apcount
                             this.userdata.aphistorycount = result.data.historyApcount
                             this.userdata.yb_schoolname = result.data.yb_schoolname
-                            this.userdata.yb_username = result.data.yb_username
+                            this.userdata.yb_username = result.data.yb_name
                         } else {
                             //获取失败时的默认信息
                         }
