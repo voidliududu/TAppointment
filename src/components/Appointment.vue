@@ -45,8 +45,8 @@
             return {
                 dateinfo: "",
                 currentpgid: 0,
-                dialog: flase,
-                msg:"",
+                dialog: false,
+                msg: "",
                 avaiablePg: [{
                     pgid: 2,
                     playground: 3,
@@ -110,7 +110,7 @@
                 this.dialog = true
             },
             apcommit: function () {
-                this.$http.post(webroot + taapi.appointment,{
+                this.$http.post(webroot + taapi.appointment, {
                     pgid: this.pgid,
                     date: this.date
                 }).then(res => {
@@ -118,7 +118,7 @@
                     if (result.status === 0) {
                         this.msg = "预约成功"
                         this.showToast()
-                    }else{
+                    } else {
                         this.msg = "预约失败"
                         this.showToast()
                     }
@@ -127,12 +127,17 @@
                     this.showToast()
                 })
             },
-            showToast () {
+            close() {
+                this.dialog = false
+            },
+            showToast() {
                 this.toast = true
                 if (this.toastTimer) clearTimeout(this.toastTimer)
-                this.toastTimer = setTimeout(() => { this.toast = false }, 2000)
+                this.toastTimer = setTimeout(() => {
+                    this.toast = false
+                }, 2000)
             },
-            hideToast () {
+            hideToast() {
                 this.toast = false
                 if (this.toastTimer) clearTimeout(this.toastTimer)
             }
