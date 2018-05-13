@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 
 Vue.use(MuseUI)
 Vue.use(VueResource)
+Vue.http.options.emulateJSON = true;
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

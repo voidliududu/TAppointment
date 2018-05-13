@@ -3,7 +3,8 @@
         <mu-date-picker
                 :value="dateinfo"
                 format="YYYY-MM-DD"
-                hint-text="请选择日期"></mu-date-picker>
+                hint-text="请选择日期"
+                @change="handlechange"></mu-date-picker>
         <mu-sub-header>空闲场地</mu-sub-header>
         <!--<mu-flexbox wrap="wrap" class="pgflow">-->
         <!--<mu-flexbox-item v-for="item in avaiablePg" >-->
@@ -110,6 +111,7 @@
                 this.dialog = true
             },
             apcommit: function () {
+                this.close()
                 this.$http.post(webroot + taapi.appointment, {
                     pgid: this.pgid,
                     date: this.date
@@ -140,10 +142,9 @@
             hideToast() {
                 this.toast = false
                 if (this.toastTimer) clearTimeout(this.toastTimer)
-            }
-        },
-        watch: {
-            dateinfo: function (newdate, olddate) {
+            },
+            handlechange: function (value) {
+                console.log(value)
                 this.$http
                     .post(webroot + taapi.getAvaiable, {date: newdate})
                     .then(res => {
@@ -151,6 +152,7 @@
                         if (result.status === 0) {
                             resdata = result.data;
                             resdata.forEach(function (item) {
+                                this.avaiablePg = []
                                 this.avaiablePg.push({
                                     playground: item.pgname,
                                     timeslice: timesliceMap[item.timeslice],
@@ -164,10 +166,33 @@
                         //网络错误
                     })
             }
-        },
-        created: function () {
-
         }
+        // watch: {
+        //     dateinfo: function (newdate, olddate) {
+        //         console.log(newdate)
+        //         console.log(olddate)
+        //         this.$http
+        //             .post(webroot + taapi.getAvaiable, {date: newdate})
+        //             .then(res => {
+        //                 let result = res.body
+        //                 if (result.status === 0) {
+        //                     resdata = result.data;
+        //                     resdata.forEach(function (item) {
+        //                         this.avaiablePg = []
+        //                         this.avaiablePg.push({
+        //                             playground: item.pgname,
+        //                             timeslice: timesliceMap[item.timeslice],
+        //                             pgstate: item.pstate
+        //                         })
+        //                     })
+        //                 } else {
+        //                     this.avaiablePg = []
+        //                 }
+        //             }, res => {
+        //                 //网络错误
+        //             })
+        //     }
+        // },
     }
 </script>
 
