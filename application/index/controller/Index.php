@@ -193,7 +193,6 @@ class Index extends Controller
             if ($playground == NULL) {
                 return $this->jsonError(2, 'no playground found');
             }
-            //todo add a column timeslice in appointments
             $ap = new Appointments();
             $ap->uid = $this->user->uid;
             $ap->pgid = $playground->pgid;
@@ -232,6 +231,20 @@ class Index extends Controller
         }else{
             return $this->jsonError(3,'aid required');
         }
+    }
+    /**
+     * 获取预约的详细信息
+     *
+     * */
+    public function getApInfo(Request $request) {
+        if (!$request->has("aid",'post')) {
+            return $this->jsonError(1,"aid required");
+        }
+        $info = Appointments::getApInfo($this->user,$request->post('aid'));
+        if ($info == NULL) {
+            return $this->jsonError(2,'权限不足');
+        }
+        return $this->jsonSuccess($info);
     }
 
     /**

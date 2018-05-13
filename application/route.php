@@ -32,5 +32,8 @@ return [
     'improveinfo' => ['index/Index/improveInfo',['method' => 'post']],
     'getuserinfo' => ['index/Index/fetchUserInfo',['method' => 'get']],
     'getAppointmentInfo' => ['index/Index/getAppointmentList',['method' => 'get']],
-    'getHistoryAppointmentInfo' => ['index/Index/getHistoryAppointmentList',['method' => 'get']]
+    'getHistoryAppointmentInfo' => ['index/Index/getHistoryAppointmentList',['method' => 'get']],
+    'appointment' => ['index/Index/doAppointment',['method' => 'post']],
+    'getavaiable' => ['index/Index/getAvaiable',['method' => 'post']],
+    'getApinfo' => ['index/Index/getApinfo',['method' => 'post']]
 ];

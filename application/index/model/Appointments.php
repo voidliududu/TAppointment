@@ -2,6 +2,7 @@
 
 namespace app\index\model;
 
+use think\exception\DbException;
 use think\Model;
 
 use \app\common\exception\InsufficientPrivilegesException;
@@ -104,5 +105,33 @@ class Appointments extends Model
         else{
             $appointment->delete();
         }
+    }
+
+    /**
+     * 获取一个预约的详细信息
+     * @param int $aid
+     * @return array | NULL
+     * @throws DbException
+     * */
+    public static function getApInfo($me,$aid) {
+
+        //todo 联表优化
+        $appointment = Appointments::get($aid);
+        $uid = $appointment->uid;
+        if ($uid != $me->uid) {
+            return NULL;
+        }
+        $pgid = $appointment->pgid;
+        $user = Users::get($uid);
+        $playground = Playgrounds::get($pgid);
+        return [
+            'playground' => $playground->pgname,
+            'adate' => $appointment->adate,
+            'name' => $user->real_name,
+            'shoolnumber' => $user->school_number,
+            'token' => $appointment->token,
+            'signtime' => $appointment->create_at,
+            'astate' => $appointment->state
+        ];
     }
 }

@@ -105,7 +105,9 @@ class ModelTest extends Controller
 //        $result = Playgrounds::getTimeSlice(3);
 //        dump($result);
 
-         echo $this->generateVerifyToken();
+//         echo $this->generateVerifyToken();
+        $user = Users::get(16516545);
+        return json($user->append(['apcount','history_apcount']));
     }
 
     /**

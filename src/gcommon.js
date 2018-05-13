@@ -1,8 +1,22 @@
 export const webroot = "http://123.207.108.16";
 export const taapi = {
-    improveInfo: "/testimproveinfo",
+    improveInfo: "/improveinfo",
     getUserInfo: "/getuserinfo",
-    getApInfo: "/getAppointmentInfo",
-    getHApInfo: "/getHistoryAppointmentInfo"
+    getApList: "/getAppointmentInfo",
+    getHApList: "/getHistoryAppointmentInfo",
+    //用aid获取预约信息 todo
+    getApInfo:"/getApinfo",
+    //预约pgid date
+    appointment: "/appointment",
+    //conflict == 8
+    getAvaiable: "/getavaiable"
 };
+
+export const timesliceMap = [
+    "一二节",
+    "三四节",
+    "五六节",
+    "七八节",
+    "九十节"
+];
 

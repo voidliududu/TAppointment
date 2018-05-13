@@ -17,7 +17,10 @@
             <mu-flexbox>
                 <!--flexbox无click事件-->
                 <mu-flexbox-item class="score" >
-                    <mu-raised-button  v-on:click="apclick" :label="apcount" icon="android" primary full-width></mu-raised-button>
+                    <mu-raised-button  v-on:click="apclick" :label="apcount" icon="android" primary full-width>
+                        <div>test</div>
+                        <div>next</div>
+                    </mu-raised-button>
                 </mu-flexbox-item>
                 <mu-flexbox-item class="score">
                     <mu-raised-button v-on:click="apHclick" :label="aphistorycount" icon="android" primary full-width></mu-raised-button>

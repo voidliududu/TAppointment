@@ -128,4 +128,13 @@ class Users extends Model
         return $this->appointments()->where('adate','>=',date('Y-m-d'))->select();
     }
 
+    /**
+     * 获取器
+     * */
+    public function getApcountAttr() {
+        return $this->apcount;
+    }
+    public function getHistoryApcountAttr() {
+        return $this->historyApcount;
+    }
 }

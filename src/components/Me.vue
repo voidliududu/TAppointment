@@ -1,3 +1,10 @@
+<!--
+issue
+    1. todo所示内容
+    2. apcount 的问题
+    3. 修复按钮的外观
+-->
+
 <template>
     <div id="me">
         <head-info id="head"
@@ -8,9 +15,9 @@
                    :aphistorycount="userdata.aphistorycount"
                    v-on:apclick="onapclick"
                    v-on:ap-h-click="onapHclick"></head-info>
-        <mu-list>
-            <mu-sub-header>{{aptitle}}</mu-sub-header>
-            <mu-list-item v-for="item in listdata" :title="item.adate" describeText="">
+        <mu-sub-header>{{aptitle}}</mu-sub-header>
+        <mu-list @itemClick="handleItemClick">
+            <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate" describeText="">
                 <mu-icon slot="left" value="home"/>
             </mu-list-item>
         </mu-list>
@@ -42,15 +49,15 @@
         methods: {
             onapclick: function () {
                 //处理点击事件
-                console.log("ap被点击")
+                // console.log("ap被点击")
                 this.aptitle = "当前预约"
-                this.$http.get(webroot + taapi.getApInfo)
+                this.$http.get(webroot + taapi.getApList)
                     .then(res => {
                         let result = res.body
                         if (result.status === 0) {
                             this.listdata = result.data
                         } else {
-
+                            this.listdata = []
                         }
                     }, res => {
 
@@ -58,19 +65,24 @@
             },
             onapHclick: function () {
                 //处理点击事件
-                console.log("aph被点击")
+                // console.log("aph被点击")
                 this.aptitle = "历史预约"
-                this.$http.get(webroot + taapi.getHApInfo)
+                this.$http.get(webroot + taapi.getHApList)
                     .then(res => {
                         let result = res.body
                         if (result.status === 0) {
                             this.listdata = result.data
                         } else {
-
+                            //todo
+                            this.listdata = []
                         }
                     }, res => {
 
                     })
+            },
+            handleItemClick: function (item) {
+                let aid = item.value
+                this.$router.push('/apinfo/' + aid)
             }
         }
         ,
@@ -82,15 +94,17 @@
                             //成功
                             this.userdata.uhead = result.data.yb_userhead
                             this.userdata.apcount = result.data.apcount
-                            this.userdata.aphistorycount = result.data.historyApcount
+                            this.userdata.aphistorycount = result.data.history_apcount
                             this.userdata.yb_schoolname = result.data.yb_schoolname
                             this.userdata.yb_username = result.data.yb_name
                         } else {
                             //获取失败时的默认信息
+                            //todo 置list为空
                         }
                     },
                     res => {
                         //网络错误的处理
+                        //todo
                     })
             this.onapclick()
         }
