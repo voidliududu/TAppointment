@@ -129,7 +129,7 @@ class Appointments extends Model
             'playground' => $playground->pgname,
             'adate' => $appointment->adate,
             'name' => $user->real_name,
-            'shoolnumber' => $user->school_number,
+            'schoolnumber' => $user->school_number,
             'token' => $appointment->token,
             'signtime' => $appointment->create_at,
             'astate' => $appointment->state
