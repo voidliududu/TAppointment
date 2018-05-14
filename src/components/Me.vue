@@ -17,10 +17,20 @@ issue
                    v-on:ap-h-click="onapHclick"></head-info>
         <mu-sub-header>{{aptitle}}</mu-sub-header>
         <mu-list @itemClick="handleItemClick">
-            <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate" :describeText="printTimeslice(item.timeslice)" class="listitem">
-                <mu-icon slot="left" value="home"/>
+            <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate"
+                          :describeText="printTimeslice(item.timeslice)" class="listitem">
+                <mu-icon slot="left" value="event_available"/>
+                <mu-icon value="delete" slot="right" @click.stop="deleteAp(item.aid)"/>
+                <!--<mu-icon-button class="test" icon="android"/>-->
+                <!--<mu-icon-menu slot="right" icon="delete" @open.stop="test"></mu-icon-menu>-->
             </mu-list-item>
         </mu-list>
+        <mu-toast v-if="toast" :message="msg" @close="hideToast"/>
+        <mu-dialog :open="dialog" title="Dialog" @close="close">
+            {{dialogmsg}}
+            <mu-flat-button slot="actions" @click="close" primary label="否"/>
+            <mu-flat-button slot="actions" primary @click="dodelete" label="是"/>
+        </mu-dialog>
     </div>
 </template>
 
@@ -28,14 +38,19 @@ issue
     import HeadInfo from "./HeadInfo";
     import MuList from "muse-ui/src/list/list"
     import MuListItem from "muse-ui/src/list/listItem"
-    import {webroot, taapi,timesliceMap} from "../gcommon";
+    import {webroot, taapi, timesliceMap} from "../gcommon";
 
     export default {
         name: "Me",
         components: {HeadInfo, MuList},
         data: function () {
             return {
+                dialog: false,
+                toast: false,
+                msg: "",
+                dialogmsg: "是否删除该预约",
                 aptitle: "当前预约",
+                deleteAid: -1,
                 userdata: {
                     'uhead': '',
                     'yb_username': 'xxx',
@@ -43,10 +58,53 @@ issue
                     'apcount': 0,
                     'aphistorycount': 0
                 },
-                listdata: []
+                listdata: [{
+                    aid: 1,
+                    adate: "2018-09-04",
+                    timeslice: 2
+                }]
             }
         },
         methods: {
+            close: function () {
+                this.dialog = false
+            },
+            open: function () {
+                this.dialog = true
+            },
+            deleteAp: function (aid) {
+                this.deleteAid = aid
+                this.open()
+            },
+            dodelete: function() {
+                this.close()
+                this.$http
+                    .post(webroot + taapi.withdrawAp,{aid: this.deleteAid})
+                    .then(res => {
+                        let result = res.body
+                        if (result.status === 0) {
+                            this.msg = "取消成功"
+                            this.showToast()
+                            this.onapclick()
+                        }else{
+                            this.msg = "取消失败"
+                            this.showToast()
+                        }
+                    }, res => {
+
+                    })
+            },
+            showToast() {
+                this.toast = true
+                if (this.toastTimer) clearTimeout(this.toastTimer)
+                this.toastTimer = setTimeout(() => {
+                    this.toast = false
+                }, 2000)
+            },
+            hideToast() {
+                this.toast = false
+                if (this.toastTimer) clearTimeout(this.toastTimer)
+            },
             onapclick: function () {
                 //处理点击事件
                 // console.log("ap被点击")
@@ -109,16 +167,20 @@ issue
                         //网络错误的处理
                         //todo
                     })
-            this.onapclick()
+            // this.onapclick()
         }
     }
 </script>
 
 <style scoped>
-    #id {
-        width: 100%;
+    #me {
+        margin-top: 20px;
+        margin-left: 5%;
+        margin-right: 5%;
     }
-    .listitem{
+
+    .listitem {
         text-align: left;
     }
+
 </style>

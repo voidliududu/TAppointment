@@ -5,13 +5,14 @@ import Me from "@/components/Me"
 import Login from "@/components/Login"
 import ApInfo from "@/components/ApInfo"
 import Appointment from "@/components/Appointment"
+import About from "@/components/About"
 Vue.use(Router)
 
 export default new Router({
     routes: [
         {
             path: '/apinfo/:aid',
-            name: 'login',
+            name: 'apinfo',
             component: ApInfo,
             props: true
         },
@@ -21,7 +22,7 @@ export default new Router({
             component: Me
         },
         {
-            path: '/login/:user',
+            path: '/login',
             name: 'improveinfo',
             component: Login,
             props:true
@@ -30,6 +31,11 @@ export default new Router({
             path: '/appointment',
             name: 'appointment',
             component: Appointment,
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About,
         }
     ]
 })

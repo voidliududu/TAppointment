@@ -5,13 +5,13 @@
                 实名登记
             </mu-flexbox-item>
             <mu-flexbox-item id="headimg">
-                <div >
-                <mu-avatar id="inner-headimg" :src="userhead"></mu-avatar>
+                <div>
+                    <mu-avatar id="inner-headimg" :src="userhead"></mu-avatar>
                 </div>
             </mu-flexbox-item>
             <mu-flexbox-item>
                 <div id="greeting">
-                    你好，{{user}}。请输入你的学号姓名完成登记
+                    你好，{{username}}。请输入你的学号姓名完成登记
                 </div>
                 <br/>
             </mu-flexbox-item>
@@ -36,20 +36,23 @@
 <script>
     import MuFlexbox from "muse-ui/src/flexbox/flexbox";
     import MuFlexboxItem from "muse-ui/src/flexbox/flexboxItem";
-    import {webroot,taapi} from "../gcommon"
+    import {webroot, taapi} from "../gcommon"
+
     export default {
         name: "Login",
-        props: ['user', 'userhead'],
+        // props: ['user', 'userhead'],
         components: {MuFlexboxItem, MuFlexbox},
         data: function () {
             return {
-                schoolnumber:'',
-                realname:'',
+                username: "",
+                userhead: "",
+                schoolnumber: '',
+                realname: '',
                 dialog: false,
                 msg: '默认'
             }
         },
-        methods:{
+        methods: {
             postData: function () {
                 var school_num = this.schoolnumber;
                 var realname = this.realname;
@@ -59,17 +62,18 @@
                     return
                 }
                 this.$http.post(webroot + taapi.improveInfo,
-                    {schoolnumber:school_num,
-                     name:realname
-                    }).then(res =>{
-                        var result = res.body;
-                        if(result.status === 0) {
-                            this.msg = "成功";
-                            this.dialog = true;
-                        } else{
-                            this.msg = "失败";
-                        }
-                },res => {
+                    {
+                        schoolnumber: school_num,
+                        name: realname
+                    }).then(res => {
+                    var result = res.body;
+                    if (result.status === 0) {
+                        this.msg = "成功";
+                        this.dialog = true;
+                    } else {
+                        this.msg = "失败";
+                    }
+                }, res => {
                     this.msg = "网络繁忙";
                     this.dialog = true;
                 })
@@ -80,29 +84,53 @@
             open: function () {
                 this.dialog = true
             }
-        }
+        },
 
+        created: function () {
+            this.$http.get(webroot + taapi.getUserInfo)
+                .then(res => {
+                        let result = res.body
+                        if (result.status === 0) {
+                            //成功
+                            this.username = result.data.yb_username
+                            this.userhead = result.data.yb_userhead
+                        } else {
+                            //获取失败时的默认信息
+                            //todo
+                        }
+                    },
+                    res => {
+                        //网络错误的处理
+                        //todo
+                    })
+        }
     }
 </script>
 
 <style scoped>
-    #login{
-        margin:10px 10%;
+    #login {
+        margin: 10px 10%;
+        margin-top: 40px;
     }
-    #login-title{
-        width:auto;
+
+    #login-title {
+        width: auto;
         font-size: 20px;
     }
-    #headimg{
-        width:auto;
+
+    #headimg {
+        width: auto;
     }
-    #inner-headimg{
-        margin:0 auto;
+
+    #inner-headimg {
+        margin: 0 auto;
     }
-    #greeting{
+
+    #greeting {
         font-size: 17px;
     }
-    #confirm{
-        width:100%;
+
+    #confirm {
+        width: 100%;
     }
 </style>
