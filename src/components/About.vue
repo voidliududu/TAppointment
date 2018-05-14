@@ -1,6 +1,5 @@
 <template>
     <div id="about">
-        <mu-sub-header>关于</mu-sub-header>
         <mu-list>
             <mu-list-item title="网球场地预约制度">
                 <mu-icon slot="left" value="forum"></mu-icon>

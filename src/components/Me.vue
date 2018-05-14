@@ -58,11 +58,7 @@ issue
                     'apcount': 0,
                     'aphistorycount': 0
                 },
-                listdata: [{
-                    aid: 1,
-                    adate: "2018-09-04",
-                    timeslice: 2
-                }]
+                listdata: []
             }
         },
         methods: {
@@ -167,7 +163,7 @@ issue
                         //网络错误的处理
                         //todo
                     })
-            // this.onapclick()
+            this.onapclick()
         }
     }
 </script>

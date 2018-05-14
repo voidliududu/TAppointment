@@ -8,6 +8,7 @@
 
 <script>
     import FootNav from "./components/FootNav";
+    import {webroot, taapi} from "./gcommon";
 
     export default {
         components: {FootNav},
