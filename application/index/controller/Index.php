@@ -89,11 +89,12 @@ class Index extends Controller
      * */
     public function index(Request $request)
     {
-        if ($this->user->checkImproveInfo()) {
-            return $this->fetch('Index/index');
-        } else{
-            dump($this->user);
-        }
+//        if ($this->user->checkImproveInfo()) {
+//            return $this->fetch('Index/index');
+//        } else{
+//            dump($this->user);
+//        }
+        return $this->fetch('Index/index');
     }
 
     /**
