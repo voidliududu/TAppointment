@@ -1,13 +1,15 @@
 <template>
     <div id="apinfo">
         <mu-flexbox orient="vertical" justify="center">
-            <mu-flexbox-item class="flex-item" id="stateicon">
-                <mu-icon value="home"></mu-icon>
+            <mu-flexbox-item class="myflex" id="stateicon">
+                <div>
+                    <mu-icon value="home"></mu-icon>
+                </div>
             </mu-flexbox-item>
-            <mu-flexbox-item class="flex-item" id="playground">
+            <mu-flexbox-item class="myflex" id="playground">
                 {{playground}}号球场
             </mu-flexbox-item>
-            <mu-flexbox-item class="flex-item" id="date">
+            <mu-flexbox-item class="myflex" id="date">
                 {{adate}}
             </mu-flexbox-item>
         </mu-flexbox>
@@ -18,6 +20,8 @@
             <mu-list-item title="申请时间" :describe-text="getSignTime"></mu-list-item>
             <mu-list-item title="状态" :describe-text="getState"></mu-list-item>
         </mu-list>
+        <mu-raised-button @click="withdrawAp" label="取消预约" fullWidth></mu-raised-button>
+        <mu-toast v-if="toast" :message="msg" @close="hideToast"/>
     </div>
 </template>
 
@@ -26,36 +30,71 @@
     import MuFlexboxItem from "muse-ui/src/flexbox/flexboxItem";
     import MuList from "muse-ui/src/list/list";
     import MuListItem from "muse-ui/src/list/listItem";
-    import {webroot,taapi} from "../gcommon";
+    import {webroot, taapi} from "../gcommon";
 
     export default {
         name: "ApInfo",
         components: {MuListItem, MuList, MuFlexboxItem, MuFlexbox},
-        props:["aid"],
-        data:function () {
+        props: ["aid"],
+        msg: "",
+        data: function () {
             return {
-                playground:"3",
-                adate:"2018-02-03",
-                name:"刘都都",
-                schoolnumber:"0902160201",
-                token:"dxejo2374",
-                signtime:"2018-01-2 11:11:11",
-                astate:"0"
+                playground: "xxx",
+                adate: "xxxx-xx-xx",
+                name: "xxx",
+                schoolnumber: "xxxxxxxxxx",
+                token: "xxxxxxx",
+                signtime: "xxxxxx",
+                astate: "0"
             }
         },
         methods: {
+            withdrawAp() {
+                this.$http
+                    .post(webroot + taapi.withdrawAp,{aid: this.aid})
+                    .then(res => {
+                        let result = res.body
+                        if (result.status === 0) {
+                            this.msg = "取消成功"
+                            this.showToast()
+                            this.$router.push("/me")
+                        }else{
+                            this.msg = "取消失败"
+                            this.showToast()
+                        }
+                    }, res => {
 
+                    })
+            },
+            showToast() {
+                this.toast = true
+                if (this.toastTimer) clearTimeout(this.toastTimer)
+                this.toastTimer = setTimeout(() => {
+                    this.toast = false
+                }, 2000)
+            },
+            hideToast() {
+                this.toast = false
+                if (this.toastTimer) clearTimeout(this.toastTimer)
+            },
         },
-        created: function(){
+        created: function () {
             //fixme aid 判空
-            this.$http.post(webroot + taapi.getApInfo,  {aid:this.aid})
-                .then(res => {
+            this.$http.post(webroot + taapi.getApInfo, {aid: this.aid})
+                .then(function (res) {
                     let result = res.body;
                     if (result.status == 0) {
                         //处理数据映射
-                        this.data = result.data
+                        this.aid = result.data.aid
+                        this.playground = result.data.playground
+                        this.adate = result.data.adate
+                        this.name = result.data.name
+                        this.token = result.data.token
+                        this.schoolnumber = result.data.schoolnumber
+                        this.signtime = result.data.signtime
+                        this.astate = result.data.astate
 
-                    }else{
+                    } else {
                         //错误处理
                     }
                 }, res => {
@@ -63,8 +102,8 @@
                 })
         },
         computed: {
-            getState: function() {
-                let statecode = ["可用","不可用"]
+            getState: function () {
+                let statecode = ["可用", "不可用"]
                 return statecode[this.astate]
             },
             getSignTime: function () {
@@ -75,7 +114,16 @@
 </script>
 
 <style scoped>
-    .flex-item{
+    .myflex {
+        width: auto;
+    }
+    #stateicon{
+        width:auto;
+    }
+    #playground{
+        width: auto;
+    }
+    #date{
         width: auto;
     }
 </style>

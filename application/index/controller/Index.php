@@ -77,6 +77,11 @@ class Index extends Controller
             $this->user = Users::get(Session::get('uid'));
         }
     }
+//    public function __construct(Request $request = null)
+//    {
+//        parent::__construct($request);
+//        $this->user = Users::get(16516545);
+//    }
 
     /**
      * 显示用户主页
@@ -84,7 +89,7 @@ class Index extends Controller
      * */
     public function index(Request $request)
     {
-        if (! $this->user->checkImproveInfo()) {
+        if ($this->user->checkImproveInfo()) {
             return $this->fetch('Index/index');
         } else{
             dump($this->user);
@@ -111,7 +116,7 @@ class Index extends Controller
      * 返回用户信息
      * */
     public function fetchUserInfo(Request $request) {
-        return $this->jsonSuccess($this->user);
+        return $this->jsonSuccess($this->user->append(['apcount','history_apcount']));
     }
 
     /**
@@ -184,7 +189,7 @@ class Index extends Controller
      * */
     public function doAppointment(Request $request)
     {
-        if (!$request->has('pgid') || $request->has('date')) {
+        if (!$request->has('pgid') || !$request->has('date')) {
             return $this->jsonError(1, 'pgid required');
         } else {
             $pgid = $request->post('pgid');
@@ -200,8 +205,9 @@ class Index extends Controller
             $ap->timeslice = $playground->timeslice;
             try {
                 $aid = Appointments::signAppointment($this->user, $ap);
-                $appointment = Appointments::get($aid);
-                return $appointment;
+//                $appointment = Appointments::get($aid);
+//                return $appointment;
+                return $this->jsonSuccess([]);
             } catch (TooMuchAppointmentsException $e) {
                 return $this->jsonError(3, '用户预约数已满');
             } catch (ConflictAppointmentException $e) {
@@ -218,7 +224,7 @@ class Index extends Controller
      * */
     public function withdrawAppointment(Request $request)
     {
-        if (!$request->has('aid', 'post')) {
+        if ($request->has('aid', 'post')) {
             try {
                 $appointment = Appointments::get($request->post('aid'));
                 Appointments::signoutAppointment($this->user,$appointment);

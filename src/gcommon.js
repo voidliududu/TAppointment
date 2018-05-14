@@ -1,4 +1,6 @@
-export const webroot = "http://123.207.108.16";
+// export const webroot = "http://123.207.108.16";
+export const webroot = "http://localhost:8080";
+
 export const taapi = {
     improveInfo: "/improveinfo",
     getUserInfo: "/getuserinfo",
@@ -9,7 +11,8 @@ export const taapi = {
     //预约pgid date
     appointment: "/appointment",
     //conflict == 8
-    getAvaiable: "/getavaiable"
+    getAvaiable: "/getAvaiable",
+    withdrawAp: "/withdrawAp"
 };
 
 export const timesliceMap = [

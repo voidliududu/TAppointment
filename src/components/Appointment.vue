@@ -1,7 +1,7 @@
 <template>
     <div>
         <mu-date-picker
-                :value="dateinfo"
+                v-model="dateinfo"
                 format="YYYY-MM-DD"
                 hint-text="请选择日期"
                 @change="handlechange"></mu-date-picker>
@@ -47,61 +47,14 @@
                 dateinfo: "",
                 currentpgid: 0,
                 dialog: false,
+                toast: false,
+                toastTimer:0,
                 msg: "",
                 avaiablePg: [{
                     pgid: 2,
                     playground: 3,
                     timeslice: 5
-                },
-                    {
-                        pgid: 3,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 4,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 5,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 6,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 7,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 8,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 9,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 10,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 11,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 12,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 13,
-                        playground: 3,
-                        timeslice: 5
-                    }, {
-                        pgid: 15,
-                        playground: 3,
-                        timeslice: 5
-                    }
+                }
                 ],
             }
         },
@@ -112,16 +65,18 @@
             },
             apcommit: function () {
                 this.close()
+                let cpgid = this.currentpgid
+                let dinfo = this.dateinfo
                 this.$http.post(webroot + taapi.appointment, {
-                    pgid: this.pgid,
-                    date: this.date
+                    pgid: cpgid,
+                    date: dinfo
                 }).then(res => {
                     let result = res.body
                     if (result.status === 0) {
                         this.msg = "预约成功"
                         this.showToast()
                     } else {
-                        this.msg = "预约失败"
+                        this.msg = result.msg
                         this.showToast()
                     }
                 }, res => {
@@ -146,19 +101,21 @@
             handlechange: function (value) {
                 console.log(value)
                 this.$http
-                    .post(webroot + taapi.getAvaiable, {date: newdate})
+                    .post(webroot + taapi.getAvaiable, {date:value})
                     .then(res => {
                         let result = res.body
                         if (result.status === 0) {
-                            resdata = result.data;
+                            let resdata = result.data;
+                            let tempdata = []
                             resdata.forEach(function (item) {
-                                this.avaiablePg = []
-                                this.avaiablePg.push({
+                                tempdata.push({
+                                    pgid: item.pgid,
                                     playground: item.pgname,
                                     timeslice: timesliceMap[item.timeslice],
                                     pgstate: item.pstate
                                 })
                             })
+                            this.avaiablePg = tempdata
                         } else {
                             this.avaiablePg = []
                         }

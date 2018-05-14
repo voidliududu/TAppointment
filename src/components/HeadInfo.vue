@@ -17,13 +17,14 @@
             <mu-flexbox>
                 <!--flexbox无click事件-->
                 <mu-flexbox-item class="score" >
-                    <mu-raised-button  v-on:click="apclick" :label="apcount" icon="android" primary full-width>
-                        <div>test</div>
-                        <div>next</div>
+                    <mu-raised-button  v-on:click="apclick" :label="apcount" icon="android" full-width>
+                        <div>当前预约数</div>
                     </mu-raised-button>
                 </mu-flexbox-item>
                 <mu-flexbox-item class="score">
-                    <mu-raised-button v-on:click="apHclick" :label="aphistorycount" icon="android" primary full-width></mu-raised-button>
+                    <mu-raised-button v-on:click="apHclick" :label="aphistorycount" icon="android" full-width>
+                        <div>历史预约数</div>
+                    </mu-raised-button>
                 </mu-flexbox-item>
             </mu-flexbox>
         </mu-paper>
@@ -64,8 +65,6 @@
     }
     .score {
         width: 40%;
-        height: 80px;
         margin: 0 auto;
-        background-color: #2196f3;
     }
 </style>

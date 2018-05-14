@@ -34,6 +34,7 @@ return [
     'getAppointmentInfo' => ['index/Index/getAppointmentList',['method' => 'get']],
     'getHistoryAppointmentInfo' => ['index/Index/getHistoryAppointmentList',['method' => 'get']],
     'appointment' => ['index/Index/doAppointment',['method' => 'post']],
-    'getavaiable' => ['index/Index/getAvaiable',['method' => 'post']],
-    'getApinfo' => ['index/Index/getApinfo',['method' => 'post']]
+    'getAvaiable' => ['index/Index/getAvailable',['method' => 'post']],
+    'getApinfo' => ['index/Index/getApinfo',['method' => 'post']],
+    'withdrawAp' => ['index/Index/withdrawAppointment',['method' => 'post']]
 ];

@@ -125,6 +125,7 @@ class Appointments extends Model
         $user = Users::get($uid);
         $playground = Playgrounds::get($pgid);
         return [
+            'aid' => $aid,
             'playground' => $playground->pgname,
             'adate' => $appointment->adate,
             'name' => $user->real_name,

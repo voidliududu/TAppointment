@@ -17,7 +17,7 @@ issue
                    v-on:ap-h-click="onapHclick"></head-info>
         <mu-sub-header>{{aptitle}}</mu-sub-header>
         <mu-list @itemClick="handleItemClick">
-            <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate" describeText="">
+            <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate" :describeText="printTimeslice(item.timeslice)" class="listitem">
                 <mu-icon slot="left" value="home"/>
             </mu-list-item>
         </mu-list>
@@ -28,7 +28,7 @@ issue
     import HeadInfo from "./HeadInfo";
     import MuList from "muse-ui/src/list/list"
     import MuListItem from "muse-ui/src/list/listItem"
-    import {webroot, taapi} from "../gcommon";
+    import {webroot, taapi,timesliceMap} from "../gcommon";
 
     export default {
         name: "Me",
@@ -37,11 +37,11 @@ issue
             return {
                 aptitle: "当前预约",
                 userdata: {
-                    'uhead': './assets/logo.png',
-                    'yb_username': '刘都都',
-                    'yb_schoolname': '中南大学',
-                    'apcount': 3,
-                    'aphistorycount': 16
+                    'uhead': '',
+                    'yb_username': 'xxx',
+                    'yb_schoolname': 'xxxx',
+                    'apcount': 0,
+                    'aphistorycount': 0
                 },
                 listdata: []
             }
@@ -83,6 +83,9 @@ issue
             handleItemClick: function (item) {
                 let aid = item.value
                 this.$router.push('/apinfo/' + aid)
+            },
+            printTimeslice: function (timeslice) {
+                return timesliceMap[timeslice]
             }
         }
         ,
@@ -114,5 +117,8 @@ issue
 <style scoped>
     #id {
         width: 100%;
+    }
+    .listitem{
+        text-align: left;
     }
 </style>
