@@ -26,7 +26,7 @@ issue
             </mu-list-item>
         </mu-list>
         <mu-toast v-if="toast" :message="msg" @close="hideToast"/>
-        <mu-dialog :open="dialog" title="Dialog" @close="close">
+        <mu-dialog :open="dialog" title="" @close="close">
             {{dialogmsg}}
             <mu-flat-button slot="actions" @click="close" primary label="否"/>
             <mu-flat-button slot="actions" primary @click="dodelete" label="是"/>
@@ -58,7 +58,19 @@ issue
                     'apcount': 0,
                     'aphistorycount': 0
                 },
-                listdata: []
+                listdata: [{
+                    aid: 1,
+                    adate: "xxxx-xx-xx",
+                    timeslice: 1
+                }, {
+                    aid: 1,
+                    adate: "xxxx-xx-xx",
+                    timeslice: 1
+                }, {
+                    aid: 1,
+                    adate: "xxxx-xx-xx",
+                    timeslice: 1
+                }]
             }
         },
         methods: {
@@ -72,17 +84,17 @@ issue
                 this.deleteAid = aid
                 this.open()
             },
-            dodelete: function() {
+            dodelete: function () {
                 this.close()
                 this.$http
-                    .post(webroot + taapi.withdrawAp,{aid: this.deleteAid})
+                    .post(webroot + taapi.withdrawAp, {aid: this.deleteAid})
                     .then(res => {
                         let result = res.body
                         if (result.status === 0) {
                             this.msg = "取消成功"
                             this.showToast()
                             this.onapclick()
-                        }else{
+                        } else {
                             this.msg = "取消失败"
                             this.showToast()
                         }
@@ -163,7 +175,8 @@ issue
                         //网络错误的处理
                         //todo
                     })
-            this.onapclick()
+            //todo uncomment
+            // this.onapclick()
         }
     }
 </script>
@@ -173,10 +186,12 @@ issue
         margin-top: 20px;
         margin-left: 5%;
         margin-right: 5%;
+        background-color: #e6e6e6;
     }
 
     .listitem {
         text-align: left;
+        background-color: white;
     }
 
 </style>

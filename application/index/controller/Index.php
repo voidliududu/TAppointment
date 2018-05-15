@@ -60,6 +60,7 @@ class Index extends Controller
                         $user->yb_userhead = $moreUserInfo['yb_userhead'];
                         $user->yb_schoolid = $moreUserInfo['yb_schoolid'];
                         $user->yb_schoolname = $moreUserInfo['yb_schoolname'];
+                        $user->state = Users::$UNAUTHED;
                         Users::signUp($user);
                         $user = Users::checkSignUp($userid);
                     } catch (DBException $e) {

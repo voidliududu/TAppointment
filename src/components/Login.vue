@@ -25,7 +25,7 @@
                 <mu-flat-button label="确认" primary id="confirm" v-on:click="postData"></mu-flat-button>
             </mu-flexbox-item>
         </mu-flexbox>
-        <mu-dialog :open="dialog" title="Dialog" @close="close">
+        <mu-dialog :open="dialog" title="" @close="close">
             {{msg}}
             <mu-flat-button slot="actions" @click="close" primary label="取消"/>
             <mu-flat-button slot="actions" primary @click="close" label="确定"/>
@@ -49,6 +49,7 @@
                 schoolnumber: '',
                 realname: '',
                 dialog: false,
+                success: false,
                 msg: '默认'
             }
         },
@@ -70,8 +71,10 @@
                     if (result.status === 0) {
                         this.msg = "成功";
                         this.dialog = true;
+                        this.success = true;
                     } else {
                         this.msg = "失败";
+                        this.dialog = true;
                     }
                 }, res => {
                     this.msg = "网络繁忙";
@@ -80,6 +83,9 @@
             },
             close: function () {
                 this.dialog = false
+                if (this.success === true) {
+                    this.$router.push('/me')
+                }
             },
             open: function () {
                 this.dialog = true

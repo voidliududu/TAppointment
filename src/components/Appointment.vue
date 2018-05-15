@@ -23,7 +23,7 @@
                 <mu-icon slot="left" :value="StatusIcon(item.pgstate)"/>
             </mu-list-item>
         </mu-list>
-        <mu-dialog :open="dialog" title="Dialog" @close="close">
+        <mu-dialog :open="dialog" title="" @close="close">
             确定要预约该场地？
             <mu-flat-button slot="actions" @click="close" primary label="取消"/>
             <mu-flat-button slot="actions" primary @click="apcommit" label="确定"/>
