@@ -58,19 +58,20 @@ issue
                     'apcount': 0,
                     'aphistorycount': 0
                 },
-                listdata: [{
-                    aid: 1,
-                    adate: "xxxx-xx-xx",
-                    timeslice: 1
-                }, {
-                    aid: 1,
-                    adate: "xxxx-xx-xx",
-                    timeslice: 1
-                }, {
-                    aid: 1,
-                    adate: "xxxx-xx-xx",
-                    timeslice: 1
-                }]
+                // listdata: [{
+                //     aid: 1,
+                //     adate: "xxxx-xx-xx",
+                //     timeslice: 1
+                // }, {
+                //     aid: 1,
+                //     adate: "xxxx-xx-xx",
+                //     timeslice: 1
+                // }, {
+                //     aid: 1,
+                //     adate: "xxxx-xx-xx",
+                //     timeslice: 1
+                // }]
+                listdata:[]
             }
         },
         methods: {
@@ -175,8 +176,7 @@ issue
                         //网络错误的处理
                         //todo
                     })
-            //todo uncomment
-            // this.onapclick()
+            this.onapclick()
         }
     }
 </script>

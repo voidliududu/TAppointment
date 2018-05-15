@@ -169,6 +169,7 @@
         margin-top: 20px;
         margin-right: 5%;
         margin-left: 5%;
+        text-align: center;
     }
     .listitem {
         text-align: left;
