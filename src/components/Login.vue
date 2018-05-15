@@ -98,7 +98,7 @@
                         let result = res.body
                         if (result.status === 0) {
                             //成功
-                            this.username = result.data.yb_username
+                            this.username = result.data.yb_name
                             this.userhead = result.data.yb_userhead
                         } else {
                             //获取失败时的默认信息
