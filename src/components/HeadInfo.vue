@@ -18,11 +18,9 @@
         <!--</mu-paper>-->
         <!--<mu-paper>-->
         <mu-list>
-            <mu-paper>
-                <mu-list-item :title="username" :describe-text="userSchool" class="userinfo">
-                    <mu-avatar slot="left" :src="userhead"/>
-                </mu-list-item>
-            </mu-paper>
+            <mu-list-item :title="username" :describe-text="userSchool" class="userinfo">
+                <mu-avatar slot="left" :src="userhead"/>
+            </mu-list-item>
         </mu-list>
         <mu-flexbox justify="space-between">
             <!--flexbox无click事件-->

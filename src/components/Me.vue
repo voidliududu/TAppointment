@@ -186,7 +186,7 @@ issue
         margin-top: 20px;
         margin-left: 5%;
         margin-right: 5%;
-        background-color: #e6e6e6;
+        /*background-color: #e6e6e6;*/
     }
 
     .listitem {
