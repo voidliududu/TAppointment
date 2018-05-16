@@ -10,11 +10,17 @@ use think\Db;
 use \app\index\model\Users;
 use \app\index\model\Playgrounds;
 use \app\index\model\Appointments;
-
+//https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=80035161_1_dg&wd=appointment&oq=get%25E8%25AF%25B7%25E6%25B1%2582&rsv_pq=adf64daf0001e731&rsv_t=e95du2X6IiMN1Ui8rDE3TElVmwAqbLxDPdI4YUwhPCVOlUJmXIydGM%2BykUvLowccRl8ESw&rqlang=cn&rsv_enter=1&inputT=7789&rsv_sug3=24&rsv_sug1=27&rsv_sug7=100&bs=get%E8%AF%B7%E6%B1%82
 
 class ModelTest extends Controller
 {
 
+    public function mytest(Request $request) {
+        $myid = $request->get("id");
+        echo $request->get('test');
+        echo $myid;
+        echo "helloworld";
+    }
 
     /**
      * 创建测试数据

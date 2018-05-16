@@ -25,6 +25,8 @@ return [
     'testimproveinfo' => ['test/ModelTest/improveInfo',['method' => 'post']],
     'testsignapp' => 'test/ModelTest/makeAppointment',
 
+    'liududu' => 'test/ModelTest/mytest',
+
 
 
 

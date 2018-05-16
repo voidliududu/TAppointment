@@ -39,8 +39,9 @@ class Appointments extends Model
         $today = date('Y-m-d');
         $flagDay = strtotime("$today + ".config("max_appointments_time")." day");
         $date_timestamp = strtotime($date);
+        $todaytime=strtotime($today);
         if ($date_timestamp > $flagDay) return NULL;
-        if ($date_timestamp <= $today ) return NULL;
+        if ($date_timestamp <= $todaytime ) return NULL;
         $signedAppointments = (new Appointments())->where('adate',$date)->column('pgid');
         $allPgid = Playgrounds::getAvailablePgid();
         //fixme diff
