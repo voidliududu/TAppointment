@@ -81,7 +81,8 @@ class Index extends Controller
 //    public function __construct(Request $request = null)
 //    {
 //        parent::__construct($request);
-//        $this->user = Users::get(16516545);
+//        $this->user = Users::get(10389276);
+//
 //    }
 
     /**
