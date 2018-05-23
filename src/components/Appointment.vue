@@ -5,7 +5,7 @@
                 format="YYYY-MM-DD"
                 hint-text="请选择日期"
                 @change="handlechange"></mu-date-picker>
-        <mu-sub-header>空闲场地</mu-sub-header>
+        <mu-sub-header class="catetitle">空闲场地</mu-sub-header>
         <!--<mu-flexbox wrap="wrap" class="pgflow">-->
         <!--<mu-flexbox-item v-for="item in avaiablePg" >-->
         <!--<div class="playground">-->
@@ -17,12 +17,15 @@
         <!--</mu-flexbox-item>-->
         <!--</mu-flexbox>-->
         <!--flex布局失败，尝试列表布局-->
-        <mu-list @itemClick="apclick">
-            <mu-list-item class="listitem" v-for="item in avaiablePg" @click="apclick" :value="item.pgid"
-                          :title="item.playground" :describe-text="item.timeslice">
-                <mu-icon slot="left" :value="StatusIcon(item.pgstate)" color="blue" />
-            </mu-list-item>
-        </mu-list>
+        <div v-for="(itemlist, index) in avaiablePg">
+            <mu-sub-header>{{getTimeSlice(index)}}</mu-sub-header>
+            <mu-list @itemClick="apclick">
+                <mu-list-item class="listitem" v-for="item in itemlist" @click="apclick" :value="item.pgid"
+                              :title="item.playground" :describe-text="item.timeslice">
+                    <mu-icon slot="left" :value="StatusIcon(item.pgstate)" color="blue"/>
+                </mu-list-item>
+            </mu-list>
+        </div>
         <mu-dialog :open="dialog" title="" @close="close">
             确定要预约该场地？
             <mu-flat-button slot="actions" @click="close" primary label="取消"/>
@@ -48,9 +51,86 @@
                 currentpgid: 0,
                 dialog: false,
                 toast: false,
-                toastTimer:0,
+                toastTimer: 0,
                 msg: "",
-                avaiablePg: [],
+                avaiablePg:[]
+                // avaiablePg: [[{
+                //     pgid: 1,
+                //     playground: "test",
+                //     timeslice: "test",
+                //     pgstate: 0
+                // }, {
+                //     pgid: 1,
+                //     playground: "test",
+                //     timeslice: "test",
+                //     pgstate: 0
+                // }, {
+                //     pgid: 1,
+                //     playground: "test",
+                //     timeslice: "test",
+                //     pgstate: 0
+                // }, {
+                //     pgid: 1,
+                //     playground: "test",
+                //     timeslice: "test",
+                //     pgstate: 0
+                // },
+                //
+                // ],
+                //     [
+                //         {
+                //             pgid: 1,
+                //             playground: "test",
+                //             timeslice: "test",
+                //             pgstate: 0
+                //         }, {
+                //         pgid: 1,
+                //         playground: "test",
+                //         timeslice: "test",
+                //         pgstate: 0
+                //     }, {
+                //         pgid: 1,
+                //         playground: "test",
+                //         timeslice: "test",
+                //         pgstate: 0
+                //     },
+                //     ],
+                //     [
+                //         {
+                //             pgid: 1,
+                //             playground: "test",
+                //             timeslice: "test",
+                //             pgstate: 0
+                //         }, {
+                //         pgid: 1,
+                //         playground: "test",
+                //         timeslice: "test",
+                //         pgstate: 0
+                //     }, {
+                //         pgid: 1,
+                //         playground: "test",
+                //         timeslice: "test",
+                //         pgstate: 0
+                //     },
+                //     ],
+                //     [
+                //         {
+                //             pgid: 1,
+                //             playground: "test",
+                //             timeslice: "test",
+                //             pgstate: 0
+                //         }, {
+                //         pgid: 1,
+                //         playground: "test",
+                //         timeslice: "test",
+                //         pgstate: 0
+                //     }, {
+                //         pgid: 1,
+                //         playground: "test",
+                //         timeslice: "test",
+                //         pgstate: 0
+                //     },
+                //     ]],
             }
         },
         methods: {
@@ -96,14 +176,18 @@
             handlechange: function (value) {
                 console.log(value)
                 this.$http
-                    .post(webroot + taapi.getAvaiable, {date:value})
+                    .post(webroot + taapi.getAvaiable, {date: value})
                     .then(res => {
                         let result = res.body
                         if (result.status === 0) {
                             let resdata = result.data;
                             let tempdata = []
+                            tempdata[0] = []
+                            tempdata[1] = []
+                            tempdata[2] = []
+                            tempdata[3] = []
                             resdata.forEach(function (item) {
-                                tempdata.push({
+                                tempdata[item.timeslice].push({
                                     pgid: item.pgid,
                                     playground: item.pgname,
                                     timeslice: timesliceMap[item.timeslice],
@@ -121,9 +205,12 @@
             StatusIcon: function (state) {
                 if (state == 0) {
                     return "event_available"
-                }else{
+                } else {
                     return "event_busy"
                 }
+            },
+            getTimeSlice: function (timeslice) {
+                return timesliceMap[timeslice]
             }
         }
         // watch: {
@@ -165,11 +252,14 @@
     /*width: 100px;*/
     /*height: 100px;*/
     /*}*/
-    #appointment{
+    #appointment {
         margin-top: 20px;
         margin-right: 5%;
         margin-left: 5%;
         text-align: center;
+    }
+    .catetitle{
+        text-align: left;
     }
     .listitem {
         text-align: left;
