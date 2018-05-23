@@ -109,9 +109,9 @@ class Index extends Controller
         } else if ($id == 2) {
             return $this->fetch("Index/about");
         } else if ($id == 3) {
-            $this->fetch("Index/feedback");
+            return $this->fetch("Index/feedback");
         } else if ($id == 4) {
-            $this->fetch("Index/version");
+            return $this->fetch("Index/version");
         }
     }
 
