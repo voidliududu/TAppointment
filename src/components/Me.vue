@@ -15,12 +15,13 @@ issue
                    :aphistorycount="userdata.aphistorycount"
                    v-on:apclick="onapclick"
                    v-on:ap-h-click="onapHclick"></head-info>
+        <div id="meinfo">
         <mu-sub-header>{{aptitle}}</mu-sub-header>
         <mu-list @itemClick="handleItemClick">
             <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate"
                           :describeText="printTimeslice(item.timeslice)" class="listitem">
-                <mu-icon slot="left" value="event_available"/>
-                <mu-icon value="delete" slot="right" @click.stop="deleteAp(item.aid)"/>
+                <mu-icon slot="left" value="event_available" color="blue"/>
+                <mu-icon value="delete" slot="right" @click.stop="deleteAp(item.aid)" color="blue"/>
                 <!--<mu-icon-button class="test" icon="android"/>-->
                 <!--<mu-icon-menu slot="right" icon="delete" @open.stop="test"></mu-icon-menu>-->
             </mu-list-item>
@@ -31,6 +32,7 @@ issue
             <mu-flat-button slot="actions" @click="close" primary label="否"/>
             <mu-flat-button slot="actions" primary @click="dodelete" label="是"/>
         </mu-dialog>
+        </div>
     </div>
 </template>
 
@@ -182,7 +184,7 @@ issue
 </script>
 
 <style scoped>
-    #me {
+    #meinfo {
         margin-top: 20px;
         margin-left: 5%;
         margin-right: 5%;

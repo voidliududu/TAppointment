@@ -3,7 +3,7 @@
         <mu-flexbox orient="vertical" justify="center">
             <mu-flexbox-item class="myflex" id="stateicon">
                 <div>
-                    <mu-icon :value="getStatusIcon()" size="60"></mu-icon>
+                    <mu-icon :value="getStatusIcon()" size="60" color="blue"></mu-icon>
                 </div>
             </mu-flexbox-item>
             <mu-flexbox-item class="myflex" id="playground">
@@ -15,19 +15,19 @@
         </mu-flexbox>
         <mu-list>
             <mu-list-item title="申请人" :describe-text="name">
-                <mu-icon slot="left" value="person"></mu-icon>
+                <mu-icon slot="left" value="person" color="blue"></mu-icon>
             </mu-list-item>
             <mu-list-item title="学号" :describe-text="schoolnumber">
-                <mu-icon slot="left" value="assignment"></mu-icon>
+                <mu-icon slot="left" value="assignment" color="blue"></mu-icon>
             </mu-list-item>
             <mu-list-item title="验证码" :describe-text="token">
-                <mu-icon slot="left" value="verified_user"></mu-icon>
+                <mu-icon slot="left" value="verified_user" color="blue"></mu-icon>
             </mu-list-item>
             <mu-list-item title="申请时间" :describe-text="getSignTime">
-                <mu-icon slot="left" value="date_range"></mu-icon>
+                <mu-icon slot="left" value="date_range" color="blue"></mu-icon>
             </mu-list-item>
             <mu-list-item title="状态" :describe-text="getState">
-                <mu-icon slot="left" value="code"></mu-icon>
+                <mu-icon slot="left" value="code" color="blue"></mu-icon>
             </mu-list-item>
         </mu-list>
     </div>

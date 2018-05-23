@@ -20,7 +20,7 @@
         <mu-list @itemClick="apclick">
             <mu-list-item class="listitem" v-for="item in avaiablePg" @click="apclick" :value="item.pgid"
                           :title="item.playground" :describe-text="item.timeslice">
-                <mu-icon slot="left" :value="StatusIcon(item.pgstate)"/>
+                <mu-icon slot="left" :value="StatusIcon(item.pgstate)" color="blue" />
             </mu-list-item>
         </mu-list>
         <mu-dialog :open="dialog" title="" @close="close">

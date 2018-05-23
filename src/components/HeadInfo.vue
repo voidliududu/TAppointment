@@ -17,15 +17,20 @@
         <!--</mu-row>-->
         <!--</mu-paper>-->
         <!--<mu-paper>-->
-        <mu-list>
-            <mu-list-item :title="username" :describe-text="userSchool" class="userinfo">
-                <mu-avatar slot="left" :src="userhead"/>
-            </mu-list-item>
-        </mu-list>
-        <mu-flexbox justify="space-between">
+        <!--<mu-list>-->
+            <!--<mu-list-item :title="username" :describe-text="userSchool" class="userinfo">-->
+                <!--<mu-avatar slot="left" :src="userhead"/>-->
+            <!--</mu-list-item>-->
+        <!--</mu-list>-->
+        <mu-flexbox orient="vertical" justify="center" class="hdinfo">
+            <mu-avatar :src="userhead" size="78"/>
+            <mu-flexbox class="hiuser">{{username}}</mu-flexbox>
+            <mu-flexbox class="hiuser">{{userSchool}}</mu-flexbox>
+        </mu-flexbox>
+        <mu-flexbox class="hdbutton" justify="space-between">
             <!--flexbox无click事件-->
             <mu-flexbox-item class="score">
-                <mu-flat-button v-on:click="apclick" :label="apcount" icon="whatshot">
+                <mu-flat-button v-on:click="apclick" :label="apcount" icon="whatshot" color="blue">
                     <div>当前预约数:</div>
                 </mu-flat-button>
             </mu-flexbox-item>
@@ -66,7 +71,20 @@
     .userinfo {
         text-align: left;
     }
-
+    .hdinfo{
+        min-height: 250px;
+        background-color: #2196f3;
+    }
+    .hdbutton{
+        margin-top: 20px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .hiuser{
+        color: white;
+        font-size: 15px;
+        width: auto;
+    }
     .score {
         width: auto;
         margin: 0 auto;
