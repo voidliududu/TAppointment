@@ -40,7 +40,7 @@
     import MuFlexboxItem from "muse-ui/src/flexbox/flexboxItem";
     import MuList from "muse-ui/src/list/list";
     import MuListItem from "muse-ui/src/list/listItem";
-    import {webroot, taapi, timesliceMap} from "../gcommon";
+    import {webroot, taapi, timeslicenumMap} from "../gcommon";
 
     export default {
         name: "Appointment",
@@ -54,83 +54,7 @@
                 toastTimer: 0,
                 msg: "",
                 avaiablePg:[]
-                // avaiablePg: [[{
-                //     pgid: 1,
-                //     playground: "test",
-                //     timeslice: "test",
-                //     pgstate: 0
-                // }, {
-                //     pgid: 1,
-                //     playground: "test",
-                //     timeslice: "test",
-                //     pgstate: 0
-                // }, {
-                //     pgid: 1,
-                //     playground: "test",
-                //     timeslice: "test",
-                //     pgstate: 0
-                // }, {
-                //     pgid: 1,
-                //     playground: "test",
-                //     timeslice: "test",
-                //     pgstate: 0
-                // },
-                //
-                // ],
-                //     [
-                //         {
-                //             pgid: 1,
-                //             playground: "test",
-                //             timeslice: "test",
-                //             pgstate: 0
-                //         }, {
-                //         pgid: 1,
-                //         playground: "test",
-                //         timeslice: "test",
-                //         pgstate: 0
-                //     }, {
-                //         pgid: 1,
-                //         playground: "test",
-                //         timeslice: "test",
-                //         pgstate: 0
-                //     },
-                //     ],
-                //     [
-                //         {
-                //             pgid: 1,
-                //             playground: "test",
-                //             timeslice: "test",
-                //             pgstate: 0
-                //         }, {
-                //         pgid: 1,
-                //         playground: "test",
-                //         timeslice: "test",
-                //         pgstate: 0
-                //     }, {
-                //         pgid: 1,
-                //         playground: "test",
-                //         timeslice: "test",
-                //         pgstate: 0
-                //     },
-                //     ],
-                //     [
-                //         {
-                //             pgid: 1,
-                //             playground: "test",
-                //             timeslice: "test",
-                //             pgstate: 0
-                //         }, {
-                //         pgid: 1,
-                //         playground: "test",
-                //         timeslice: "test",
-                //         pgstate: 0
-                //     }, {
-                //         pgid: 1,
-                //         playground: "test",
-                //         timeslice: "test",
-                //         pgstate: 0
-                //     },
-                //     ]],
+
             }
         },
         methods: {
@@ -190,7 +114,7 @@
                                 tempdata[item.timeslice].push({
                                     pgid: item.pgid,
                                     playground: item.pgname,
-                                    timeslice: timesliceMap[item.timeslice],
+                                    timeslice: timeslicenumMap[item.timeslice],
                                     pgstate: item.pstate
                                 })
                             })

@@ -16,6 +16,13 @@ export const taapi = {
     getDetailInfo: "/about",
 };
 
+export const timeslicenumMap = [
+    "8:00 - 9:40",
+    "10:00 - 11:40",
+    "14:00 - 15:40",
+    "16:00 - 17:40",
+]
+
 export const timesliceMap = [
     "一二节",
     "三四节",
