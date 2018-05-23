@@ -25,5 +25,9 @@
 </script>
 
 <style scoped>
-
+#detail{
+     margin-top: 20px;
+     margin-left: 5%;
+     margin-right: 5%;
+}
 </style>
