@@ -14,10 +14,10 @@
             }
         },
         created: function () {
-            console.log(webroot + taapi + "/" + this.info)
             this.$http.get(webroot + taapi.getDetailInfo + "/" + this.info)
                 .then(res => {
                     this.rawHtml = res.bodyText;
+                    console.log(res.bodyText);
                 }, res => {
 
                 })
