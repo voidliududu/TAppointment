@@ -16,9 +16,7 @@
         created: function () {
             this.$http.get(webroot + taapi.getDetailInfo + "/" + this.info)
                 .then(res => {
-                    this.rawHtml = res.bodyText;
-                    console.log(res.body)
-                    console.log(res.bodyText);
+                    this.rawHtml = res.body;
                 }, res => {
 
                 })
