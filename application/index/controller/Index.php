@@ -20,70 +20,70 @@ class Index extends Controller
 {
     private $user;
 
-//    public function __construct()
-//    {
-//        parent::__construct();
-//        //1.检查session
-//        //2.获取验证
-//        if (!$this->checkAuthPhase()) {
-//            //拿到user信息
-//            $userAuth = new Auth();
-//            if ($userAuth->getAuthState() == Auth::$VERIFY_REQUEST_ERR) {
-//                //易班与服务器通信错误
-//                die( "你好，你的队友易班服务器已经打出了gg，我们不能为你提供服务啦 :(");
-//            } else {
-//                $userinfo = $userAuth->getAuthInfo();
-//                //检查用户是否已注册
-//                $userid = $userinfo['visit_user']['userid'];
-//                $user = Users::checkSignUp($userid);
-//                if ($user == false) {
-//                    if ($userinfo['visit_oauth'] == false) {
-//                        //引导授权
-//                        $url = config('api_authorize') . '?client_id=' . config('appid') . '&redirect_uri=' . config('entry_url');
-//                        $this->redirect($url);
-//                    }
-//                    //获取用户详细信息
-//                    $moreUserInfo = $this->getUserInfo($userinfo['visit_oauth']['access_token']);
-//                    if ($moreUserInfo == NULL) {
-//                        die( '获取用户信息失败');
-//                    }
-//                    //判断是否是中南大学学生
-//                    if ($moreUserInfo['yb_schoolname'] != config('school_name')) {
-//                        die('本系统只向中南大学学生开放');
-//                    }
-//                    //注册
-//                    try {
-//                        $user = new Users();
-//                        $user->uid = $userid;
-//                        $user->yb_name = $moreUserInfo['yb_username'];
-//                        $user->yb_nickname = $moreUserInfo['yb_usernick'];
-//                        $user->yb_userhead = $moreUserInfo['yb_userhead'];
-//                        $user->yb_schoolid = $moreUserInfo['yb_schoolid'];
-//                        $user->yb_schoolname = $moreUserInfo['yb_schoolname'];
-//                        $user->state = Users::$UNAUTHED;
-//                        Users::signUp($user);
-//                        $user = Users::checkSignUp($userid);
-//                    } catch (DBException $e) {
-//                        die('注册失败');
-//                    }
-//                }
-//                //set authphase等操作
-//                $this->setAuthPhase($user, $userinfo['visit_oauth']);
-//            }
-//        }
-//        //初始化user
-//        if (isset($user)) {
-//            $this->user = $user;
-//        } else {
-//            $this->user = Users::get(Session::get('uid'));
-//        }
-//    }
-    public function __construct(Request $request = null)
+    public function __construct()
     {
-        parent::__construct($request);
-        $this->user = Users::get(10389276);
-
+        parent::__construct();
+        //1.检查session
+        //2.获取验证
+        if (!$this->checkAuthPhase()) {
+            //拿到user信息
+            $userAuth = new Auth();
+            if ($userAuth->getAuthState() == Auth::$VERIFY_REQUEST_ERR) {
+                //易班与服务器通信错误
+                die( "你好，你的队友易班服务器已经打出了gg，我们不能为你提供服务啦 :(");
+            } else {
+                $userinfo = $userAuth->getAuthInfo();
+                //检查用户是否已注册
+                $userid = $userinfo['visit_user']['userid'];
+                $user = Users::checkSignUp($userid);
+                if ($user == false) {
+                    if ($userinfo['visit_oauth'] == false) {
+                        //引导授权
+                        $url = config('api_authorize') . '?client_id=' . config('appid') . '&redirect_uri=' . config('entry_url');
+                        $this->redirect($url);
+                    }
+                    //获取用户详细信息
+                    $moreUserInfo = $this->getUserInfo($userinfo['visit_oauth']['access_token']);
+                    if ($moreUserInfo == NULL) {
+                        die( '获取用户信息失败');
+                    }
+                    //判断是否是中南大学学生
+                    if ($moreUserInfo['yb_schoolname'] != config('school_name')) {
+                        die('本系统只向中南大学学生开放');
+                    }
+                    //注册
+                    try {
+                        $user = new Users();
+                        $user->uid = $userid;
+                        $user->yb_name = $moreUserInfo['yb_username'];
+                        $user->yb_nickname = $moreUserInfo['yb_usernick'];
+                        $user->yb_userhead = $moreUserInfo['yb_userhead'];
+                        $user->yb_schoolid = $moreUserInfo['yb_schoolid'];
+                        $user->yb_schoolname = $moreUserInfo['yb_schoolname'];
+                        $user->state = Users::$UNAUTHED;
+                        Users::signUp($user);
+                        $user = Users::checkSignUp($userid);
+                    } catch (DBException $e) {
+                        die('注册失败');
+                    }
+                }
+                //set authphase等操作
+                $this->setAuthPhase($user, $userinfo['visit_oauth']);
+            }
+        }
+        //初始化user
+        if (isset($user)) {
+            $this->user = $user;
+        } else {
+            $this->user = Users::get(Session::get('uid'));
+        }
     }
+//    public function __construct(Request $request = null)
+//    {
+//        parent::__construct($request);
+//        $this->user = Users::get(10389276);
+//
+//    }
 
     /**
      * 显示用户主页
