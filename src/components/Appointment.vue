@@ -40,7 +40,7 @@
     import MuFlexboxItem from "muse-ui/src/flexbox/flexboxItem";
     import MuList from "muse-ui/src/list/list";
     import MuListItem from "muse-ui/src/list/listItem";
-    import {webroot, taapi, timeslicenumMap} from "../gcommon";
+    import {webroot, taapi, timeslicenumMap,timesliceMap} from "../gcommon";
 
     export default {
         name: "Appointment",
