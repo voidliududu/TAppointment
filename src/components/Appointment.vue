@@ -5,7 +5,7 @@
                 format="YYYY-MM-DD"
                 hint-text="请选择日期"
                 @change="handlechange"></mu-date-picker>
-        <mu-sub-header class="catetitle">空闲场地</mu-sub-header>
+        <mu-sub-header >空闲场地</mu-sub-header>
         <!--<mu-flexbox wrap="wrap" class="pgflow">-->
         <!--<mu-flexbox-item v-for="item in avaiablePg" >-->
         <!--<div class="playground">-->
@@ -18,7 +18,7 @@
         <!--</mu-flexbox>-->
         <!--flex布局失败，尝试列表布局-->
         <div v-for="(itemlist, index) in avaiablePg">
-            <mu-sub-header>{{getTimeSlice(index)}}</mu-sub-header>
+            <mu-sub-header class="catetitle">{{getTimeSlice(index)}}</mu-sub-header>
             <mu-list @itemClick="apclick">
                 <mu-list-item class="listitem" v-for="item in itemlist" @click="apclick" :value="item.pgid"
                               :title="item.playground" :describe-text="item.timeslice">

@@ -102,9 +102,17 @@ class Index extends Controller
     /**
      * 显示about页面
      * */
-    public function about(Request $request)
+    public function about(Request $request, $id)
     {
-
+        if ($id == 1) {
+            return $this->fetch("Index/rules");
+        } else if ($id == 2) {
+            return $this->fetch("Index/about");
+        } else if ($id == 3) {
+            $this->fetch("Index/feedback");
+        } else if ($id == 4) {
+            $this->fetch("Index/version");
+        }
     }
 
     /**

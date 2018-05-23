@@ -12,7 +12,8 @@ export const taapi = {
     appointment: "/appointment",
     //conflict == 8
     getAvaiable: "/getAvaiable",
-    withdrawAp: "/withdrawAp"
+    withdrawAp: "/withdrawAp",
+    getDetailInfo: "/about",
 };
 
 export const timesliceMap = [

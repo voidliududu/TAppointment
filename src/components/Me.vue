@@ -21,7 +21,7 @@ issue
             <mu-list-item v-for="item in listdata" :value="item.aid" :title="item.adate"
                           :describeText="printTimeslice(item.timeslice)" class="listitem">
                 <mu-icon slot="left" value="event_available" color="blue"/>
-                <mu-icon value="delete" slot="right" @click.stop="deleteAp(item.aid)" color="blue"/>
+                <mu-icon value="delete" slot="right" @click.stop="deleteAp(item.aid)" color="blue" v-if="isHistory"/>
                 <!--<mu-icon-button class="test" icon="android"/>-->
                 <!--<mu-icon-menu slot="right" icon="delete" @open.stop="test"></mu-icon-menu>-->
             </mu-list-item>
@@ -53,6 +53,7 @@ issue
                 dialogmsg: "是否删除该预约",
                 aptitle: "当前预约",
                 deleteAid: -1,
+                isHistory: true,
                 userdata: {
                     'uhead': '',
                     'yb_username': 'xxx',
@@ -128,6 +129,7 @@ issue
                         } else {
                             this.listdata = []
                         }
+                        this.isHistory = true;
                     }, res => {
 
                     })
@@ -145,6 +147,7 @@ issue
                             //todo
                             this.listdata = []
                         }
+                        this.isHistory = false
                     }, res => {
 
                     })

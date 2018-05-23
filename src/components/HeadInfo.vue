@@ -30,12 +30,12 @@
         <mu-flexbox class="hdbutton" justify="space-between">
             <!--flexbox无click事件-->
             <mu-flexbox-item class="score">
-                <mu-flat-button v-on:click="apclick" :label="apcount" icon="whatshot" color="blue">
+                <mu-flat-button v-on:click="apclick" :label="apcount" icon="whatshot" :color="apclickcolor">
                     <div>当前预约数:</div>
                 </mu-flat-button>
             </mu-flexbox-item>
             <mu-flexbox-item class="score">
-                <mu-flat-button v-on:click="apHclick" :label="aphistorycount" icon="history">
+                <mu-flat-button v-on:click="apHclick" :label="aphistorycount" icon="history" :color="apHclickcolor">
                     <div>历史预约数:</div>
                 </mu-flat-button>
             </mu-flexbox-item>
@@ -53,14 +53,20 @@
         components: {MuListItem, MuFlexboxItem, MuFlexbox},
         props: ['userhead', 'username', 'userSchool', 'apcount', 'aphistorycount'],
         data: function () {
-            return {}
+            return {
+                apclickcolor: "blue",
+                apHclickcolor: ""
+            }
         },
         methods: {
             apclick: function () {
+                this.apclickcolor = "blue"
+                this.apHclickcolor = "";
                 this.$emit('apclick');
-                console.log("click")
             },
             apHclick: function () {
+                this.apHclickcolor = "blue"
+                this.apclickcolor = "";
                 this.$emit('ap-h-click');
             }
         }

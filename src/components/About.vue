@@ -1,19 +1,19 @@
 <template>
     <div id="about">
         <mu-list>
-            <mu-list-item title="网球场地预约制度">
+            <mu-list-item title="网球场地预约制度" to="/about/1">
                 <mu-icon slot="left" value="forum" color="blue"></mu-icon>
             </mu-list-item>
             <mu-divider/>
-            <mu-list-item title="预约系统使用说明">
+            <mu-list-item title="预约系统使用说明" to="/about/2">
                 <mu-icon slot="left" value="info" color="blue"></mu-icon>
             </mu-list-item>
             <mu-divider/>
-            <mu-list-item title="意见反馈">
+            <mu-list-item title="意见反馈" to="/about/3">
                 <mu-icon slot="left" value="feedback" color="blue"></mu-icon>
             </mu-list-item>
             <mu-divider/>
-            <mu-list-item title="版本说明">
+            <mu-list-item title="版本说明" to="/about/4">
                 <mu-icon slot="left" value="copyright" color="blue"></mu-icon>
             </mu-list-item>
         </mu-list>
